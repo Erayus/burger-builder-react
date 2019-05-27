@@ -24,7 +24,7 @@ class BurgerBuilder extends Component{
             cheese: 0,
             meat: 0
         },
-        totalPrice: 4,
+        totalPrice: 0,
         purchasable: false,
         purchasing: false,
         loading: false
@@ -163,7 +163,13 @@ class BurgerBuilder extends Component{
         axios.get('/ingredients.json')
             .then(res => {
                 this.setState({ingredients: res.data})
+                let totalPrice = this.state.totalPrice;
+                for (let type of Object.keys(this.state.ingredients)){
+                    totalPrice += INGREDIENT_PRICES[type] * this.state.ingredients[type];
+                    this.setState({totalPrice: totalPrice})
+                }
             })
+        
     }
 
 }
