@@ -78,30 +78,31 @@ class BurgerBuilder extends Component{
         this.setState({purchasing: false})
     };
     purchaseContinueHandler = () =>{
-        this.setState({loading: true});
-        const order = {
-            ingredients: this.state.ingredients,
-            price: this.state.totalPrice,
-            customer: {
-                name: "Raymond",
-                address: {
-                    street: 'Test street 1',
-                    zipCode: '41352',
-                    country:"Australia"
-                },
-                email: 'test@gmail.com'
-            },
-            deliveryMethod: "fatest"
-        };
-        axios.post('/orders.json', order)
-            .then(response => {
-                console.log(response);
-                this.setState({loading: false, purchasing: false});
-            })
-            .catch(error => {
-                this.setState({loading: false, purchasing: false});
-                console.log(error)
-            })
+        // this.setState({loading: true});
+        // const order = {
+        //     ingredients: this.state.ingredients,
+        //     price: this.state.totalPrice,
+        //     customer: {
+        //         name: "Raymond",
+        //         address: {
+        //             street: 'Test street 1',
+        //             zipCode: '41352',
+        //             country:"Australia"
+        //         },
+        //         email: 'test@gmail.com'
+        //     },
+        //     deliveryMethod: "fatest"
+        // };
+        // axios.post('/orders.json', order)
+        //     .then(response => {
+        //         console.log(response);
+        //         this.setState({loading: false, purchasing: false});
+        //     })
+        //     .catch(error => {
+        //         this.setState({loading: false, purchasing: false});
+        //         console.log(error)
+        //     })
+        this.props.history.push('/checkout')
     };
 
 
@@ -112,10 +113,6 @@ class BurgerBuilder extends Component{
         for (let key in disabledInfo) {
             disabledInfo[key] = disabledInfo[key] <= 0;
         }
-
-
-
-
         let orderSummary = null;
         let burger = <Spinner/>;
         if (this.state.ingredients){
@@ -129,7 +126,6 @@ class BurgerBuilder extends Component{
                         purchasable = {this.state.purchasable}
                         disabledInfo = {disabledInfo}
                         ordered = {this.purchaseHandler}
-
                     />
                 </Auxiliary>
             );
@@ -159,16 +155,20 @@ class BurgerBuilder extends Component{
 
     //Check if the burger is purchasable after rendering it
     componentDidMount() {
-        this.updatePurchaseState(this.state.ingredients);
         axios.get('/ingredients.json')
             .then(res => {
-                this.setState({ingredients: res.data})
+                //Update the ingredients with the data from the server
+                this.setState({ingredients: res.data});
+                //Update the purchase state
+                this.updatePurchaseState(this.state.ingredients);
+                //Update the total prices based on the retrieved ingredients
                 let totalPrice = this.state.totalPrice;
                 for (let type of Object.keys(this.state.ingredients)){
                     totalPrice += INGREDIENT_PRICES[type] * this.state.ingredients[type];
                     this.setState({totalPrice: totalPrice})
                 }
             })
+
         
     }
 
