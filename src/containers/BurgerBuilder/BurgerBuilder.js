@@ -31,14 +31,14 @@ class BurgerBuilder extends Component{
     };
 
     updatePurchaseState = (ingredients) => {
-      const sum = Object.keys(ingredients)
-          .map( igKey => {
-              return ingredients[igKey];
-          })
-          .reduce((sum, el)=> {
-              return sum + el;
-          },0);
-        this.setState({purchasable: sum > 0})
+            const sum = Object.keys(ingredients)
+            .map( igKey => {
+                return ingredients[igKey];
+            })
+            .reduce((sum, el)=> {
+                return sum + el;
+            },0);
+          this.setState({purchasable: sum > 0})
     };
 
     addIngredientHandler = (type) => {
@@ -143,16 +143,20 @@ class BurgerBuilder extends Component{
     componentDidMount() {
         axios.get('/ingredients.json')
             .then(res => {
-                //Update the ingredients with the data from the server
-                this.setState({ingredients: res.data});
-                //Update the purchase state
-                this.updatePurchaseState(this.state.ingredients);
-                //Update the total prices based on the retrieved ingredients
-                let totalPrice = this.state.totalPrice;
-                for (let type of Object.keys(this.state.ingredients)){
-                    totalPrice += INGREDIENT_PRICES[type] * this.state.ingredients[type];
-                    this.setState({totalPrice: totalPrice})
+                if (res.data){
+                    //Update the ingredients with the data from the server
+                    this.setState({ingredients: res.data});
+                    //Update the purchase state
+                    if(this.state.ingredients)
+                    this.updatePurchaseState(this.state.ingredients);
+                    //Update the total prices based on the retrieved ingredients
+                    let totalPrice = this.state.totalPrice;
+                    for (let type of Object.keys(this.state.ingredients)){
+                        totalPrice += INGREDIENT_PRICES[type] * this.state.ingredients[type];
+                        this.setState({totalPrice: totalPrice})
+                    }
                 }
+                
             })
 
         
