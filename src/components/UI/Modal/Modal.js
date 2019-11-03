@@ -10,7 +10,6 @@ class Modal extends Component{
         return this.props.show !== nextProps.show || this.props !== nextProps ;
     }
 
-
     componentDidUpdate(prevProps, prevState, snapshot) {
         console.log('did update!')
     }

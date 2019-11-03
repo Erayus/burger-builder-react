@@ -77,6 +77,7 @@ class BurgerBuilder extends Component{
     purchaseCancelHandler = () => {
         this.setState({purchasing: false})
     };
+<<<<<<< HEAD
 
     purchaseContinueHandler = () =>{
         this.setState({loading: true});
@@ -103,6 +104,19 @@ class BurgerBuilder extends Component{
                 this.setState({loading: false, purchasing: false});
                 console.log(error)
             })
+=======
+    purchaseContinueHandler = () =>{
+        const queryParams = [];
+        for (let i in this.state.ingredients){
+            queryParams.push(encodeURIComponent(i)+'='+ encodeURIComponent(this.state.ingredients[i]))
+        }
+        queryParams.push('price='+ this.state.totalPrice);
+        const queryString = queryParams.join('&');
+        this.props.history.push({
+            pathname: '/checkout',
+            search: '?' + queryString
+        })
+>>>>>>> ef25edd34cddc20ae5a9f9c14718fba9e19f0a3d
     };
 
 
@@ -113,8 +127,11 @@ class BurgerBuilder extends Component{
         for (let key in disabledInfo) {
             disabledInfo[key] = disabledInfo[key] <= 0;
         }
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> ef25edd34cddc20ae5a9f9c14718fba9e19f0a3d
         let orderSummary = null;
         let burger = <Spinner/>;
         if (this.state.ingredients){
@@ -128,13 +145,20 @@ class BurgerBuilder extends Component{
                         purchasable = {this.state.purchasable}
                         disabledInfo = {disabledInfo}
                         ordered = {this.purchaseHandler}
+<<<<<<< HEAD
 
+=======
+>>>>>>> ef25edd34cddc20ae5a9f9c14718fba9e19f0a3d
                     />
                 </Auxiliary>
             );
             orderSummary = <OrderSummary
                 ingredients={this.state.ingredients}
+<<<<<<< HEAD
                 totalPrice = {this.state.totalPrice}
+=======
+                totalPrice={this.state.totalPrice}
+>>>>>>> ef25edd34cddc20ae5a9f9c14718fba9e19f0a3d
                 purchaseCanceled = {this.purchaseCancelHandler}
                 purchaseContinued = {this.purchaseContinueHandler}
             />;
@@ -159,6 +183,7 @@ class BurgerBuilder extends Component{
 
     //Check if the burger is purchasable after rendering it
     componentDidMount() {
+<<<<<<< HEAD
         this.updatePurchaseState(this.state.ingredients);
         axios.get('/ingredients.json')
             .then(res => {
@@ -166,6 +191,27 @@ class BurgerBuilder extends Component{
                     this.setState({ingredients: res.data});
                 }
             })
+=======
+        axios.get('/ingredients.json')
+            .then(res => {
+                if (res.data){
+                    //Update the ingredients with the data from the server
+                    this.setState({ingredients: res.data});
+                    //Update the purchase state
+                    if(this.state.ingredients)
+                    this.updatePurchaseState(this.state.ingredients);
+                    //Update the total prices based on the retrieved ingredients
+                    let totalPrice = this.state.totalPrice;
+                    for (let type of Object.keys(this.state.ingredients)){
+                        totalPrice += INGREDIENT_PRICES[type] * this.state.ingredients[type];
+                        this.setState({totalPrice: totalPrice})
+                    }
+                }
+                
+            })
+
+        
+>>>>>>> ef25edd34cddc20ae5a9f9c14718fba9e19f0a3d
     }
 
 }
