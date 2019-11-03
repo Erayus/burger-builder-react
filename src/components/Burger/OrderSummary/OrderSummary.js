@@ -12,6 +12,7 @@ const orderSummary = (props) => {
                </li>
            )
         });
+    const totalPrice = props.totalPrice;
     return (
         <Auxilary>
             <h3>Your Order</h3>
@@ -19,6 +20,7 @@ const orderSummary = (props) => {
             <ul>
                 {ingredientSummary}
             </ul>
+            <p><strong>Total Price: </strong>${props.totalPrice.toFixed(2)}</p>
             <p>Continue to checkout?</p>
             <Button btnType="Success" clicked={props.purchaseContinued}>CONTINUE</Button>
             <Button btnType="Danger" clicked={props.purchaseCanceled}>CANCEL</Button>
@@ -27,3 +29,4 @@ const orderSummary = (props) => {
 };
 
 export default orderSummary;
+ 
