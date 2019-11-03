@@ -26,12 +26,10 @@ class Layout extends Component  {
                             closeDrawer={this.closeSideDrawerHandler}/>
                 <main className={styles.Content}>
                     <BurgerBuilder/>
-
                 </main>
             </Auxiliary>
         )
     }
-
 };
 
 export default Layout;

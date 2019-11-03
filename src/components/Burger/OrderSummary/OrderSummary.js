@@ -1,7 +1,7 @@
 import React from 'react';
 import Auxilary from '../../../hoc/Auxiliary';
 import Button from '../../UI/Button/Button';
-import BurgerBuilder from "../../../containers/BurgerBuilder/BurgerBuilder";
+// import BurgerBuilder from "../../../containers/BurgerBuilder/BurgerBuilder";
 
 const orderSummary = (props) => {
     const ingredientSummary = Object.keys(props.ingredients)
@@ -12,7 +12,6 @@ const orderSummary = (props) => {
                </li>
            )
         });
-    const totalPrice = props.totalPrice;
     return (
         <Auxilary>
             <h3>Your Order</h3>
