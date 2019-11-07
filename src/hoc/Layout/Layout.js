@@ -17,7 +17,6 @@ class Layout extends Component  {
     openSideDrawerHandler = () => {
       this.setState({isDrawerOpen: true})
     };
-
     render (){
         return (
             <Auxiliary>
