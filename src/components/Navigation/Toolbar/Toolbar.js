@@ -6,7 +6,7 @@ const toolbar = (props) => {
     return (
         <header className={classes.Toolbar}>
             <button className={classes.MobileOnly} onClick={props.openSideDrawer}>Toggle</button>
-            <div className={classes.Logo}>
+            <div className={[classes.Logo, classes.DesktopOnly].join(' ')}>
                 <Logo/>
             </div>
             <h1 className={classes.Title}>The Burger Builder</h1>
