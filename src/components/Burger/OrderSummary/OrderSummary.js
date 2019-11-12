@@ -1,7 +1,7 @@
 import React from 'react';
 import Auxilary from '../../../hoc/Auxiliary';
 import Button from '../../UI/Button/Button';
-import BurgerBuilder from "../../../containers/BurgerBuilder/BurgerBuilder";
+// import BurgerBuilder from "../../../containers/BurgerBuilder/BurgerBuilder";
 
 const orderSummary = (props) => {
     const ingredientSummary = Object.keys(props.ingredients)
@@ -19,8 +19,8 @@ const orderSummary = (props) => {
             <ul>
                 {ingredientSummary}
             </ul>
-            <p style={{fontWeight: "bolder"}}>Total price: {props.totalPrice}</p>
-            <p style={{fontWeight: "bolder"}}>Continue to checkout?</p>
+            <p><strong>Total Price: </strong>${props.totalPrice.toFixed(2)}</p>
+            <p>Continue to checkout?</p>
             <Button btnType="Danger" clicked={props.purchaseCanceled}>CANCEL</Button>
             <Button btnType="Success" clicked={props.purchaseContinued}>CONTINUE</Button>
         </Auxilary>
@@ -28,3 +28,4 @@ const orderSummary = (props) => {
 };
 
 export default orderSummary;
+ 

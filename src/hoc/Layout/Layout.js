@@ -17,7 +17,6 @@ class Layout extends Component  {
     openSideDrawerHandler = () => {
       this.setState({isDrawerOpen: true})
     };
-
     render (){
         return (
             <Auxiliary>
@@ -25,12 +24,11 @@ class Layout extends Component  {
                 <SideDrawer show={this.state.isDrawerOpen}
                             closeDrawer={this.closeSideDrawerHandler}/>
                 <main className={styles.Content}>
-                    {this.props.children}  
+                    <BurgerBuilder/>
                 </main>
             </Auxiliary>
         )
     }
-
 };
 
 export default Layout;

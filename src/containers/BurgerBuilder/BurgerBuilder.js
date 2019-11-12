@@ -31,14 +31,14 @@ class BurgerBuilder extends Component{
     };
 
     updatePurchaseState = (ingredients) => {
-            const sum = Object.keys(ingredients)
-            .map( igKey => {
-                return ingredients[igKey];
-            })
-            .reduce((sum, el)=> {
-                return sum + el;
-            },0);
-          this.setState({purchasable: sum > 0})
+      const sum = Object.keys(ingredients)
+          .map( igKey => {
+              return ingredients[igKey];
+          })
+          .reduce((sum, el)=> {
+              return sum + el;
+          },0);
+        this.setState({purchasable: sum > 0})
     };
 
     addIngredientHandler = (type) => {
@@ -77,18 +77,32 @@ class BurgerBuilder extends Component{
     purchaseCancelHandler = () => {
         this.setState({purchasing: false})
     };
+
     purchaseContinueHandler = () =>{
-        // const queryParams = [];
-        // for (let i in this.state.ingredients){
-        //     queryParams.push(encodeURIComponent(i)+'='+ encodeURIComponent(this.state.ingredients[i]))
-        // }
-        // queryParams.push('price='+ this.state.totalPrice);
-        // const queryString = queryParams.join('&');
-        // this.props.history.push({
-        //     pathname: '/checkout',
-        //     search: '?' + queryString
-        // })
-        axios.post()
+        this.setState({loading: true});
+        const order = {
+            ingredients: this.state.ingredients,
+            price: this.state.totalPrice,
+            customer: {
+                name: "Raymond",
+                address: {
+                    street: 'Test street 1',
+                    zipCode: '41352',
+                    country:"Australia"
+                },
+                email: 'test@gmail.com'
+            },
+            deliveryMethod: "fatest"
+        };
+        axios.post('/orders.json', order)
+            .then(response => {
+                console.log(response);
+                this.setState({loading: false, purchasing: false});
+            })
+            .catch(error => {
+                this.setState({loading: false, purchasing: false});
+                console.log(error)
+            })
     };
 
 
@@ -99,6 +113,8 @@ class BurgerBuilder extends Component{
         for (let key in disabledInfo) {
             disabledInfo[key] = disabledInfo[key] <= 0;
         }
+
+
         let orderSummary = null;
         let burger = <Spinner/>;
         if (this.state.ingredients){
@@ -117,7 +133,7 @@ class BurgerBuilder extends Component{
             );
             orderSummary = <OrderSummary
                 ingredients={this.state.ingredients}
-                totalPrice={this.state.totalPrice}
+                totalPrice = {this.state.totalPrice}
                 purchaseCanceled = {this.purchaseCancelHandler}
                 purchaseContinued = {this.purchaseContinueHandler}
             />;
@@ -142,25 +158,14 @@ class BurgerBuilder extends Component{
 
     //Check if the burger is purchasable after rendering it
     componentDidMount() {
-        axios.get('/ingredients.json')
-            .then(res => {
-                if (res.data){
-                    //Update the ingredients with the data from the server
-                    this.setState({ingredients: res.data});
-                    //Update the purchase state
-                    if(this.state.ingredients)
-                    this.updatePurchaseState(this.state.ingredients);
-                    //Update the total prices based on the retrieved ingredients
-                    let totalPrice = this.state.totalPrice;
-                    for (let type of Object.keys(this.state.ingredients)){
-                        totalPrice += INGREDIENT_PRICES[type] * this.state.ingredients[type];
-                        this.setState({totalPrice: totalPrice})
-                    }
-                }
-                
-            })
-
-        
+        this.updatePurchaseState(this.state.ingredients);
+        // axios.get('/ingredients.json')
+        //     .then(res => {
+        //         if (res){
+        //             console.log(res)
+        //             this.setState({ingredients: res.data});
+        //         }
+        //     })
     }
 
 }
