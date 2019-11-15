@@ -9,6 +9,7 @@ const checkoutSummary = (props) => {
             <div style={{width: '100%', margin: 'auto'}}>
                 <Burger ingredients={props.ingredients}/>
             </div>
+            <p style={{textAlign: "center", fontWeight: "bolder"}}><strong>Price:</strong> ${props.totalPrice.toFixed(2)}</p>
             <Button 
                 btnType="Danger"
                 clicked={props.checkoutCancelled}
