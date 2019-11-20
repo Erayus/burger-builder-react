@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import Auxiliary from '../Auxiliary';
 import styles from './Layout.module.css';
-import BurgerBuilder from "../../containers/BurgerBuilder/BurgerBuilder";
 import Toolbar from "../../components/Navigation/Toolbar/Toolbar";
 import SideDrawer from "../../components/Navigation/SideDrawer/SideDrawer";
 
