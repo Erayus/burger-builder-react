@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Order from '../../components/Order/Order';
 import axios from '../../axios-orders';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
-import classes from './Order.module.css'
+import classes from './Orders.module.css'
 class Orders extends Component {
     state = {
         orders: [],
@@ -19,7 +19,6 @@ class Orders extends Component {
                     })   
                 }
                 this.setState({orders: fetchOrders, loading: false})
-                console.log(this.state.orders);
             }
         )
         .catch(err => {this.setState({loading: true})})
