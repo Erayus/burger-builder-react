@@ -101,8 +101,7 @@ class ContactData extends Component {
         updatedFormElement.value = event.target.value;
         updatedOrderForm[inputIdentifier] = updatedFormElement;
         this.setState({orderForm: updatedOrderForm});
-        
-
+        console.log(updatedFormElement.value)
     }
 
     render(){
