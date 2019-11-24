@@ -56,7 +56,7 @@ class ContactData extends Component {
                         {value: "cheapest", displayValue: "Cheapest"}
                 ]
                 },
-                value: "Raymond Tran"
+                value: ""
             }
         },
         loading: false
