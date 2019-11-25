@@ -4,10 +4,10 @@ import classes from "./Input.module.css"
 const input = (props) => {
     let inputElement = null;
     const inputClasses = [classes.InputElement]
-    
+    let errorMessage = null;
     if(props.invalid && props.shouldValidate && props.touched){
         inputClasses.push(classes.Invalid);
-        console.log(props.invalid)
+        errorMessage = <span style={{color: 'red'}}>Please input a valid value</span>
     }
 
     switch (props.elementType){
@@ -49,6 +49,7 @@ const input = (props) => {
         <div className={classes.Input}> 
             <label className={classes.Label}>{props.label}</label>
             {inputElement}
+            {errorMessage}
         </div>
     )
     
