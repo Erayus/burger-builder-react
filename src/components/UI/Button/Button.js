@@ -2,7 +2,6 @@ import React from 'react';
 import classes from './Button.module.css';
 
 const button = (props) => {
-    console.log('eee: ', props.disabled)
     return(
         <button
             className={[classes.Button, classes[props.btnType]].join(' ')}
