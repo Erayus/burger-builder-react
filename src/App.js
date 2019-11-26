@@ -10,7 +10,7 @@ import Checkout from './containers/Checkout/Checkout';
 class App extends Component {
   render() {
     return (
-      <div>
+      <React.Fragment>
         <Layout>
           <Switch>
             <Route path="/orders"  component={Orders}/>
@@ -18,7 +18,7 @@ class App extends Component {
             <Route path="/" exact component={BurgerBuilder}/>
           </Switch>
         </Layout>
-      </div>
+      </React.Fragment>
     );
   }
 }
