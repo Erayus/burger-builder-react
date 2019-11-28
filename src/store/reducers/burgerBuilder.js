@@ -31,12 +31,18 @@ const reducer = (state = initialState, action) => {
                      ...state.ingredients,
                      [action.ingredientName]: state.ingredients[action.ingredientName] - 1
                  },
-                 totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ingredientName]
+                 totalPrice: Math.abs(state.totalPrice - INGREDIENT_PRICES[action.ingredientName])
              }
         case actionTypes.SET_INGREDIENTS:
+            const ingredients = action.ingredients;
+            let price = 0;
+            for (let ingredientName in ingredients){
+                price += INGREDIENT_PRICES[ingredientName] * ingredients[ingredientName]
+            }
             return {
                 ...state,
-                ingredients: action.ingredients,
+                ingredients: ingredients,
+                totalPrice: price,
                 error: false
             }
         case actionTypes.FETCH_INGREDIENTS_FAILED:
