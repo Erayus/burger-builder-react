@@ -11,13 +11,13 @@ import Spinner from "../../components/UI/Spinner/Spinner";
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import * as burgerBuilderActions from '../../store/actions/index';
 import axios from '../../axios-orders';
+import { STATUS_CODES } from 'http';
 
 
 class BurgerBuilder extends Component{
     state = {
         purchasable: false,
         purchasing: false,
-        loading: false
     };
 
     updatePurchaseState = (ingredients) => {
@@ -65,7 +65,8 @@ class BurgerBuilder extends Component{
 
 
         let orderSummary = null;
-        let burger = <Spinner/>;
+        let burger = this.props.error ? "Error Loading The Burger's Ingredients": <Spinner/>;
+
         if (this.props.ings){
             burger = (
                 <Auxiliary>
@@ -104,20 +105,22 @@ class BurgerBuilder extends Component{
 
     //Check if the burger is purchasable after rendering it
     componentDidMount() {
+        this.props.onInitIngredients();
     }
 }
 const mapStateToProps = state => {
     return {
         ings: state.ingredients,
-        totalPrice: state.totalPrice
+        totalPrice: state.totalPrice,
+        error: state.error
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         onIngredientAdded: (ingName) => dispatch(burgerBuilderActions.addIngredient(ingName)),
-        onIngredientRemoved: (ingName) => dispatch(burgerBuilderActions.removeIngredient(ingName))
-
+        onIngredientRemoved: (ingName) => dispatch(burgerBuilderActions.removeIngredient(ingName)),
+        onInitIngredients: () => dispatch(burgerBuilderActions.initIngredients())
     }
 }
 
