@@ -7,7 +7,6 @@ import classes from './BurgerBuilder.module.css';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls'
 import Modal from "../../components/UI/Modal/Modal";
 import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
-import axios from '../../axios-orders';
 import Spinner from "../../components/UI/Spinner/Spinner";
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import * as burgerBuilderActions from '../../store/actions/index';
@@ -87,9 +86,6 @@ class BurgerBuilder extends Component{
                 purchaseContinued = {this.purchaseContinueHandler}
             />;
         }
-        if (this.state.loading) {
-            orderSummary = <Spinner />
-        }
 
         return (
             <Auxiliary className={classes.Content}>
@@ -107,14 +103,7 @@ class BurgerBuilder extends Component{
 
     //Check if the burger is purchasable after rendering it
     componentDidMount() {
-        // this.updatePurchaseState(this.state.ingredients);
-        // axios.get('/ingredients.json')
-        //     .then(res => {
-        //         if (res){
-        //             this.setState({ingredients: res.data});
-        //             console.log(res)
-        //         }
-        //     })
+     
     }
 }
 const mapStateToProps = state => {
@@ -132,4 +121,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(BurgerBuilder, axios));
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(BurgerBuilder));
