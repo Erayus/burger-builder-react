@@ -21,10 +21,6 @@ class Checkout extends Component {
     //     }
     //     this.setState({ingredients: ingredients, totalPrice: price});
     // }
-    componentWillMount(){
-        this.props.onInitPurchase();
-    }
-
 
     checkoutContinuedHandler= () => {
         this.props.history.replace('/checkout/contact-data')
@@ -67,10 +63,6 @@ const mapStateToProps = state => {
     }
 }
 
-const mapDispatchToProps = dispatch => {
-    return {
-        onInitPurchase: () => {dispatch(actions.purchaseInit())}
-    }
-}
 
-export default connect(mapStateToProps,mapDispatchToProps )(Checkout);
+
+export default connect(mapStateToProps )(Checkout);
