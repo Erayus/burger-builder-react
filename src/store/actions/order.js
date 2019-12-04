@@ -52,7 +52,7 @@ export const fetchOrderSuccess = (orders) => {
 
 export const fetchOrderFail = (error) => {
     return{
-        type: actionTypes.FETCH_ORDERS_FAIL,
+        type: actionTypes.FETCH_ORDER_FAIL,
         error: error
     }
 }
