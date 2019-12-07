@@ -36,7 +36,7 @@ const reducer = (state = initialState, action) => {
             });
         case actionTypes.FETCH_ORDER_FAIL:
             return updateObject({
-                loading: false
+                loading: true
             })
         default:
             return state;    
