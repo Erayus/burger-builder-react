@@ -5,7 +5,7 @@ import * as actions from './store/actions/index';
 import './App.css';
 import Layout from './hoc/Layout/Layout';
 import BurgerBuilder from "./containers/BurgerBuilder/BurgerBuilder";
-import {Route, Switch} from 'react-router-dom';
+import {Route, Switch, Redirect} from 'react-router-dom';
 import Orders from './containers/Orders/Orders';
 import Checkout from './containers/Checkout/Checkout';
 import Auth from './containers/Auth/Auth';
@@ -18,19 +18,38 @@ class App extends Component {
   }
 
   render() {
+    let routes = (
+      <Switch>
+        <Route path="/auth"  component={Auth}/>
+        <Route path="/" exact component={BurgerBuilder}/>
+        <Redirect to="/"/>
+      </Switch>
+    );
+
+    if (this.props.isAuthenticated) {
+      routes = (
+        <Switch>
+            <Route path="/orders"  component={Orders}/>
+            <Route path="/checkout"  component={Checkout}/>
+            <Route path="/logout" component={Logout}/>
+            <Route path="/" exact component={BurgerBuilder}/>
+        </Switch>
+      )
+    }
+
     return (
       <React.Fragment>
         <Layout>
-          <Switch>
-            <Route path="/orders"  component={Orders}/>
-            <Route path="/checkout"  component={Checkout}/>
-            <Route path="/auth"  component={Auth}/>
-            <Route path="/logout" component={Logout}/>
-            <Route path="/" exact component={BurgerBuilder}/>
-          </Switch>
+          {routes}
         </Layout>
       </React.Fragment>
     );
+  }
+};
+
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.auth.token !== null
   }
 }
 
@@ -40,4 +59,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

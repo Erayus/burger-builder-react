@@ -26,15 +26,12 @@ export const logout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('expirationDate');
     localStorage.removeItem('userId');
-    alert('deleted');
     return {
         type: actionTypes.AUTH_LOGOUT
     }
 }
 
 export const checkAuthTimeout = (expirationTime) => {
-    alert('Time out: ' + expirationTime);
-
     return dispatch => {
         setTimeout(()=> {
             dispatch(logout());
