@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
+import * as actions from './store/actions/index';
 // import logo from './logo.svg';
 import './App.css';
 import Layout from './hoc/Layout/Layout';
@@ -10,6 +12,11 @@ import Auth from './containers/Auth/Auth';
 import Logout from './containers/Auth/Logout/Logout';
 
 class App extends Component {
+
+  componentDidMount() {
+    this.props.onTryToAutoSignUp();
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -27,4 +34,10 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapDispatchToProps = dispatch => {
+  return {
+    onTryToAutoSignUp: () => dispatch(actions.authCheckState())
+  }
+}
+
+export default connect(null, mapDispatchToProps)(App);

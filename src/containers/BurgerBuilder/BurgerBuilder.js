@@ -119,7 +119,7 @@ const mapStateToProps = state => {
         ings: state.burgerBuilder.ingredients,
         totalPrice: state.burgerBuilder.totalPrice,
         error: state.burgerBuilder.error,
-        isAuthenticated: state.auth.isAuthenticated
+        isAuthenticated: state.auth.token !== null
     }
 }
 
