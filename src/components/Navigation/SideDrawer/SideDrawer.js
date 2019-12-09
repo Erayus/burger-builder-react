@@ -8,7 +8,8 @@ import Auxiliary from "../../../hoc/Auxiliary";
 const sideDrawer = (props) => {
     return (
         <Auxiliary>
-            <div className={[classes.SideDrawer, props.show ? classes.Open : classes.Close].join(' ')}>
+            <div className={[classes.SideDrawer, props.show ? classes.Open : classes.Close].join(' ')}
+                onClick={props.closeDrawer}>
                 <div className={classes.Logo}>
                     <Logo/>
                 </div>
