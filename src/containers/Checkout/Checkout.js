@@ -1,9 +1,12 @@
-import React, {Component} from 'react';
+import React, {Component, Suspense} from 'react';
 import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
 import { connect } from 'react-redux';
-import {Route, Redirect} from 'react-router-dom';
-import ContactData from './ContactData/ContactData';
+import {Route, Redirect, withRouter} from 'react-router-dom';
+// import ContactData from './ContactData/ContactData';
 import * as actions from '../../store/actions/index'
+
+
+const ContactData = React.lazy(() => import('./ContactData/ContactData'));
 
 class Checkout extends Component {
 
@@ -44,8 +47,12 @@ class Checkout extends Component {
                     totalPrice={this.props.price}
                 ></CheckoutSummary>
                 <hr/>
-                <Route 
-                    path={this.props.match.path + '/contact-data'} component={ContactData}/>
+                <Suspense fallback='Loading...'>
+                    <ContactData path={this.props.match.path + '/contact-data'}/>
+                     {/* <Route 
+                    path={this.props.match.path + '/contact-data'} component={ContactData}/> */}
+                </Suspense>
+              
             </div>
             )
         }
@@ -65,4 +72,4 @@ const mapStateToProps = state => {
 
 
 
-export default connect(mapStateToProps )(Checkout);
+export default connect(mapStateToProps )(withRouter(Checkout));

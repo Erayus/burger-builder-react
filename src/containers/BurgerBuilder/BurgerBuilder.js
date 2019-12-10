@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-
+import {withRouter} from 'react-router-dom';
 import Auxiliary from '../../hoc/Auxiliary';
 import Burger from '../../components/Burger/Burger'
 import classes from './BurgerBuilder.module.css';
@@ -133,4 +133,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(BurgerBuilder, axios));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(withErrorHandler(BurgerBuilder, axios)));
