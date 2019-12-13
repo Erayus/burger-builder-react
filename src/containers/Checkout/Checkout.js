@@ -48,9 +48,9 @@ class Checkout extends Component {
                 ></CheckoutSummary>
                 <hr/>
                 <Suspense fallback='Loading...'>
-                    <ContactData path={this.props.match.path + '/contact-data'}/>
-                     {/* <Route 
-                    path={this.props.match.path + '/contact-data'} component={ContactData}/> */}
+                    {/* <ContactData exact path={this.props.match.path + '/contact-data'}/> */}
+                     <Route 
+                    path={this.props.match.path + '/contact-data'} component={ContactData}/>
                 </Suspense>
               
             </div>
