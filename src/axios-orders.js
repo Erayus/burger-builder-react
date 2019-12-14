@@ -4,5 +4,4 @@ const instance = axios.create({
    baseURL: "https://react-my-burger-ab301.firebaseio.com"
 });
 
-
 export default instance;
