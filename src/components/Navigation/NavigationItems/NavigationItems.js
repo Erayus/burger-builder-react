@@ -6,7 +6,7 @@ import classes from "./NavigationItems.module.css";
 const navigationItems = (props)=> {
     return (
         <ul className={classes.NavigationItems}>
-            <NavigationItem link="/" >Home</NavigationItem>
+            <NavigationItem link="/" >Burger Builder</NavigationItem>
             {props.isAuthenticated ? <NavigationItem link="/orders">Orders</NavigationItem> : null}
             {props.isAuthenticated 
                 ?<NavigationItem link="/logout">Logout</NavigationItem> 
