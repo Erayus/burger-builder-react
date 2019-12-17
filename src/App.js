@@ -8,10 +8,10 @@ import {Route, Switch, Redirect} from 'react-router-dom';
 
 
 const Auth = React.lazy(() => import('./containers/Auth/Auth'));
-    const BurgerBuilder = React.lazy(() => import('./containers/BurgerBuilder/BurgerBuilder'));
-    const Orders = React.lazy(() => import('./containers/Orders/Orders'));
-    const Checkout = React.lazy(() => import('./containers/Checkout/Checkout'));
-    const Logout = React.lazy(() => import('./containers/Auth/Logout/Logout'));
+const BurgerBuilder = React.lazy(() => import('./containers/BurgerBuilder/BurgerBuilder'));
+const Orders = React.lazy(() => import('./containers/Orders/Orders'));
+const Checkout = React.lazy(() => import('./containers/Checkout/Checkout'));
+const Logout = React.lazy(() => import('./containers/Auth/Logout/Logout'));
 
 class App extends Component {
 
@@ -25,28 +25,20 @@ class App extends Component {
 
     let routes = (
       <Switch>
-          <Auth path='/auth'/>
-          <BurgerBuilder path='/'/>
-          <Redirect to="/"/>
-        {/* <Route path="/auth"  component={Auth}/>
-        <Route path="/" exact component={BurgerBuilder}/> */}
+        <Route path="/auth"  component={Auth}/>
+        <Route path="/" exact component={BurgerBuilder}/>
+        <Redirect to="/"/>
       </Switch>
     );
 
     if (this.props.isAuthenticated) {
       routes = (
         <Switch>
-            <Orders path='/orders'/>
-            <Checkout path='/checkout'/>
-            <Logout path='/logout'/>
-            <Auth path='/auth'/>
-            <BurgerBuilder path='/'/>
-          {/*           
-            <Route path="/orders"  component={Orders}/>
-            <Route path="/checkout"  component={Checkout}/>
-            <Route path="/logout" component={Logout}/>
-            <Route path="/auth"  component={Auth}/>
-            <Route path="/" exact component={BurgerBuilder}/> */}
+          <Route  path='/orders' component={Orders}/>
+          <Route  path='/checkout' component={Checkout}/>
+          <Route  path='/logout' component={Logout}/>
+          <Route  path='/auth' component={Auth}/>
+          <Route  path='/' component={BurgerBuilder}/>
         </Switch>
       )
     }
